@@ -6,20 +6,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.3] - 2022-04-06
+### Added
+
+### Changed
+### Fixed
+- remove argument name;
+### Security
+
 ## [0.0.2] - 2022-04-06
 ### Added
 
 ### Changed
-- Change CreateDependencyPatternFiles to create a model, repository, service and contract files.
-- Check if root folder in app exists.
+- Change CreateDependencyPatternFiles to create a model, repository, service and contract files;
+- Check if root folder in app exists;
 - README.md with instructions how use lib.
 ### Fixed
 
 ### Security
 ## [0.0.1] - 2022-04-06
 ### Added
-- Started the package
-- Add file CreateDependencyPatternFiles
+- Started the package;
+- Initial commit;
+- Add file CreateDependencyPatternFiles.
 ### Changed
 
 ### Fixed

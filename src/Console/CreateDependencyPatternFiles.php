@@ -16,7 +16,6 @@ class CreateDependencyPatternFiles extends Command
 
     public function handle()
     {
-        $name = $this->argument('name');
         $class_name = $this->argument('class_name');
         $table_name = $this->argument('table_name');
         $class = "App\\".env('DEPENDENCY_FOLDER');
