@@ -14,6 +14,6 @@ class CreateDependencyPatternFiles extends Command
 
     public function handle()
     {
-        $this->line('teste dependencia');
+        $this->info('teste dependencia');
     }
 }
