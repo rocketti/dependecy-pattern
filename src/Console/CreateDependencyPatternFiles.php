@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\File;
 
 class CreateDependencyPatternFiles extends Command
 {
-    protected $hidden = true;
+    // protected $hidden = true;
     protected $signature = 'dp:create';
 
     protected $description = 'Create depedency pattern files';
