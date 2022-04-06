@@ -1,0 +1,18 @@
+{
+    "name": "rocketti/dependecy-pattern",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Rocketti\\DependecyPattern\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Guilherme Dakuzaku",
+            "email": "guilherme@rocketti.com.br"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
