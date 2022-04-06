@@ -5,7 +5,7 @@ namespace Rocketti\DependecyPattern;
 use Illuminate\Support\ServiceProvider;
 use Rocketti\DependecyPattern\Console\CreateDependencyPatternFiles;
 
-class BlogPackageServiceProvider extends ServiceProvider
+class DependencyPatterServiceProvider extends ServiceProvider
 {
     public function register()
     {
