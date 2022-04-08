@@ -8,8 +8,14 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
-          extensions: mbstring
-      - run: composer install && ./vendor/phpunit/phpunit/phpunit
+          extensions: mbstring, dom, fileinfo
+
+      - name: Install Composer depedencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Test with phpunit
+        run: vendor/bin/phpunit --coverage-text
+        
   release-on-push:
     runs-on: ubuntu-latest
     needs:
