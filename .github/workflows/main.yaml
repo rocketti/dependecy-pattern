@@ -30,7 +30,7 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           composer global require cedx/coveralls
-          coveralls build/logs/phpunit/clover.xml
+          coveralls build/logs/phpunit/clover.xml --service=github
           
   release-on-push:
     runs-on: ubuntu-latest
