@@ -29,8 +29,8 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          composer global require cedx/coveralls
-          coveralls build/logs/phpunit/clover.xml --service=github
+          composer global require php-coveralls/php-coveralls
+          php-coveralls --coverage_clover=build/logs/clover.xml -v --service=github
           
   release-on-push:
     runs-on: ubuntu-latest
