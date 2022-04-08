@@ -25,11 +25,11 @@ jobs:
       - name: Test with phpunit
         run: vendor/bin/phpunit
 
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
   release-on-push:
     runs-on: ubuntu-latest
     needs:
