@@ -1,6 +1,6 @@
 # Dependency Pattern - Rocketti
 
-## ATENCAO: PACOTE TEM DESENVOLVIMENTO. NÃO UTILIZAR!
+![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/rocketti/dependecy-pattern/test)
 
 <hr />
 
