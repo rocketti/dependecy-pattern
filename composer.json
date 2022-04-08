@@ -14,17 +14,16 @@
             "email": "guilherme@rocketti.com.br"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
-        "ext-mbstring": "*",
-        "illuminate/support": "^8.83",
-        "illuminate/console": "^8.83"
+        "illuminate/support": "8.x-dev",
+        "illuminate/console": "8.x-dev",
+        "ext-mbstring": "*"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.24",
-        "phpunit/phpunit": "^9.5",
-        "laravel/laravel": "^8.6",
-        "php-coveralls/php-coveralls": "^2.5"
+        "laravel/laravel": "8.x-dev",
+        "phpunit/phpunit": "9.5.x-dev",
+        "orchestra/testbench": "6.x-dev"
     },
     "scripts": {
         "post-autoload-dump": [
