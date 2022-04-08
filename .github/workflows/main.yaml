@@ -15,10 +15,10 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Install Composer depedencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader
+        run: cd ../ && composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Test with phpunit
-        run: vendor/bin/phpunit --coverage-text
+        run: vendor/bin/phpunit
         
   release-on-push:
     runs-on: ubuntu-latest
