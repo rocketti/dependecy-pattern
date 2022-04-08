@@ -7,6 +7,7 @@
 ## Dependencia
 
 - Laravel
+- SQLite3
 
 <hr />
 

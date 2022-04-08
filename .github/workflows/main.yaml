@@ -3,13 +3,26 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-    steps:
+    steps:  
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
-          extensions: mbstring
-      - run: php -m
+          extensions: mbstring, dom, fileinfo
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Install Composer depedencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Test with phpunit
+        run: vendor/bin/phpunit
+        
   release-on-push:
     runs-on: ubuntu-latest
     needs:
