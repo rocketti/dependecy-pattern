@@ -13,6 +13,9 @@
   stopOnFailure="false"
   xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 >
+<logging>
+  <log type="coverage-clover" target="build/logs/clover.xml"/>
+</logging>
   <php>
     <env name="APP_KEY" value="base64:rCmiq+TzhXEBmQNAk3KnulROnbIZDPotzRtRwu7/gl4=" />
     <env name="DEPENDENCY_FOLDER" value="Rocketti" />
