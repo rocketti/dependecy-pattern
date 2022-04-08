@@ -3,6 +3,7 @@
 namespace Rocketti\DependecyPattern\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 
@@ -15,43 +16,67 @@ class CreateDependencyPatternFiles extends Command
 
     public function handle()
     {
+        $validator = $this->validateDependencies();
+        if($validator == 1) {
+            return 1;
+        }
+
         $class_name = $this->argument('class_name');
         $table_name = $this->argument('table_name');
         $class = "App\\".env('DEPENDENCY_FOLDER');
+        $folderName = (env('APP_ENV') == 'testing')?'./tests/app/'.env('DEPENDENCY_FOLDER')."/":'app/'.env('DEPENDENCY_FOLDER')."/";
 
         if($this->option('check'))
         {
             $this->line('Checking if folder exists...');
-            $teste = $this->folderExists($class);
-            if($teste === 1) { return 1; }
+            $this->folderExists($folderName,$class);
             $this->line('Checking if folder exists... done.');
         }
 
         $this->line('Creating model...');
-        $this->createModel($class_name,$class,$table_name);
+        $this->createModel($folderName,$class_name,$class,$table_name);
         $this->line('Creating model... done.');
 
         $this->line('Creating repository...');
-        $this->createRepository($class_name,$class);
+        $this->createRepository($folderName,$class_name,$class);
         $this->line('Creating repository... done.');
 
         $this->line('Creating service...');
-        $this->createService($class_name,$class);
+        $this->createService($folderName,$class_name,$class);
         $this->line('Creating service... done.');
-
+        return 0;
     }
 
-    private function folderExists($class)
+    private function validateDependencies()
     {
-        if(env('DEPENDENCY_FOLDER') == '' || env('DEPENDENCY_FOLDER') == null)
-        {
+        if(env('DEPENDENCY_FOLDER') == '' || env('DEPENDENCY_FOLDER') == null) {
             $this->error("                                                                                                                        ");
             $this->error('  Please, check the env variable -> DEPENDENCY_FOLDER                                                                   ');
             $this->error("                                                                                                                        ");
             return 1;
         }
 
-        $folderName = 'app/'.env('DEPENDENCY_FOLDER');
+        if($this->argument('class_name') == null  || $this->argument('class_name') == '') {
+            $this->error("                                                                                                                        ");
+            $this->error('  Please, check argument class_name                                                                                     ');
+            $this->error("                                                                                                                        ");
+            return 1;
+        }
+        
+        if($this->argument('table_name') == null ||$this->argument('table_name') == '') {
+            $this->error("                                                                                                                        ");
+            $this->error('  Please, check argument table_name                                                                                     ');
+            $this->error("                                                                                                                        ");
+            return 1;
+        }
+
+        DB::connection()->getPdo();
+        
+        return 0;
+    }
+
+    private function folderExists($folderName,$class)
+    {
         $folders = [
             'Contracts','Services','Repositories','Models'
         ];
@@ -117,9 +142,8 @@ interface ServiceContract
         
     }
 
-    private function createModel($class_name,$class,$table_name)
+    private function createModel($folderName,$class_name,$class,$table_name)
     {
-        $folderName = 'app/'.env('DEPENDENCY_FOLDER').'/';
         if(!File::exists($folderName."Models/".ucfirst($class_name).".php"))
         {
             $columns = Schema::getColumnListing($table_name);
@@ -147,9 +171,8 @@ class '.ucfirst($class_name).' extends Model
         }
     }
 
-    private function createRepository($class_name,$class)
+    private function createRepository($folderName,$class_name,$class)
     {
-        $folderName = 'app/'.env('DEPENDENCY_FOLDER').'/';
         if(!File::exists($folderName."Repositories/".ucfirst($class_name)."Repository.php"))
         {
 
@@ -224,9 +247,8 @@ class '.ucfirst($class_name).'Repository
         }  
     }
 
-    private function createService($class_name,$class)
+    private function createService($folderName,$class_name,$class)
     {
-        $folderName = 'app/'.env('DEPENDENCY_FOLDER').'/';
         if(!File::exists($folderName."Services/".ucfirst($class_name)."Service.php"))
         {
             $content = '<?php

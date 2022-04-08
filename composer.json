@@ -4,14 +4,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Rocketti\\DependecyPattern\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Rocketti\\DependecyPattern\\DependencyPatterServiceProvider"
-            ]
+            "Rocketti\\DependecyPattern\\": "src/",
+            "Rocketti\\DependecyPattern\\Tests\\": "tests"
         }
     },
     "authors": [
@@ -27,6 +21,19 @@
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "laravel/laravel": "8.x-dev"
+        "laravel/laravel": "8.x-dev",
+        "phpunit/phpunit": "9.5.x-dev",
+        "orchestra/testbench": "6.x-dev"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ]
+    }, "extra": {
+        "laravel": {
+            "providers": [
+                "Rocketti\\DependecyPattern\\DependencyPatterServiceProvider"
+            ]
+        }
     }
 }
