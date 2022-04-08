@@ -12,7 +12,7 @@ jobs:
 
       - name: Check folder
         id: check-folder
-        run: ls -ltra
+        run: cd ../; ls -ltra
 
       # - name: Get composer cache directory
       #   id: composer-cache
