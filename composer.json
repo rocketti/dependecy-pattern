@@ -21,5 +21,12 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "illuminate/support": "8.x-dev",
+        "illuminate/console": "8.x-dev",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "laravel/laravel": "8.x-dev"
+    }
 }
