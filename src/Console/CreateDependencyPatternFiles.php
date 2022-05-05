@@ -195,7 +195,7 @@ class '.ucfirst($class_name).'Repository
      */
     public function __construct('.$class_name.' $'.lcfirst($class_name).')
     {
-        $this->model = $'.$class_name.';
+        $this->model = $'.lcfirst($class_name).';
     }
 
     /**
