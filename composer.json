@@ -16,9 +16,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "ext-mbstring": "*",
-        "illuminate/support": "^8.83",
-        "illuminate/console": "^8.83"
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "laravel/laravel": ">=5.8.35",
