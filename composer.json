@@ -16,12 +16,10 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "ext-mbstring": "*",
-        "illuminate/support": "^8.83",
-        "illuminate/console": "^8.83"
+        "ext-mbstring": "*"
     },
     "require-dev": {
-        "laravel/laravel": "^8.6",
+        "laravel/laravel": ">=5.8.35",
         "phpunit/phpunit": "^9.5",
         "orchestra/testbench": "^6.24",
         "php-coveralls/php-coveralls": "^2.5"
