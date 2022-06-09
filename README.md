@@ -10,11 +10,10 @@
 <hr />
 
 ## Testes:
-- Laravel
-    - 8.x ✔️
-    - 7.x ❌
-    - 6.x ❌
-    - 5.x ❌
+- 8.x ✔️
+- 7.x ❌
+- 6.x ❌
+- 5.x ✔️
 
 <hr />
 
@@ -33,3 +32,22 @@ DEPENDENCY_FOLDER="Rocketti"
 dp:create {class_name} {table_name} {--check}
 ```
 Opção `--check` é para verificar se existe as pastas para colocar os arquivos dentro.
+
+
+### Detalhes de testes:
+
+- 9.x ✔️
+     - Testado na `v9.17.0` do Laravel;
+     - Testado na imagem docker PHP : `php:8.1.6-fpm-alpine`;
+- 8.x ✔️
+     - Testado na `v8.83.14` do Laravel;
+     - Testado na imagem docker PHP : `php:8.1.6-fpm-alpine`;
+- 7.x ✔️
+    - Testado na `v7.30.6` do Laravel;
+    - Testado na imagem docker PHP : `php:7.2.5-fpm-alpine`;
+- 6.x ✔️
+    - Testado na `v6.20.44` do Laravel;
+    - Testado na imagem docker PHP : `php:7.2.5-fpm-alpine`;
+- 5.x ✔️
+    -  Testado na `v5.8.38` do Laravel;
+    - Testado na imagem docker PHP : `php:7.2.5-fpm-alpine`;
