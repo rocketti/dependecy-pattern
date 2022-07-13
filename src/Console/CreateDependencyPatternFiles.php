@@ -33,12 +33,6 @@ class CreateDependencyPatternFiles extends Command
             $this->line('Checking if folder exists... done.');
         }
 
-        if(!Schema::hasTable($table_name)){
-            $this->error("                                                                                                                        ");
-            $this->error('  Please, check if table was created.                                                                                   ');
-            $this->error("                                                                                                                        ");
-        }
-
         $this->line('Creating model...');
         $this->createModel($folderName,$class_name,$class,$table_name);
         $this->line('Creating model... done.');
@@ -76,8 +70,14 @@ class CreateDependencyPatternFiles extends Command
             return 1;
         }
 
+        if(!Schema::hasTable($table_name)){
+            $this->error("                                                                                                                        ");
+            $this->error('  Please, check if table was created.                                                                                   ');
+            $this->error("                                                                                                                        ");
+            return 1;
+        }
+
         DB::connection()->getPdo();
-        
         return 0;
     }
 
