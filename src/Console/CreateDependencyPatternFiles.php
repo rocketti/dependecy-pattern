@@ -146,7 +146,13 @@ interface ServiceContract
     {
         if(!File::exists($folderName."Models/".ucfirst($class_name).".php"))
         {
+            $notInclude = ['id','created_at','updated_at'];
             $columns = Schema::getColumnListing($table_name);
+            foreach ($columns as $key => $column) {
+                if(in_array($column,$notInclude)) {
+                    unset($columns[$key]);
+                }
+            }
             $columns = "'".implode("','", $columns)."'";
             $content = '<?php
 
