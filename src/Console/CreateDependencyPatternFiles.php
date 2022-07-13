@@ -70,7 +70,7 @@ class CreateDependencyPatternFiles extends Command
             return 1;
         }
 
-        if(!Schema::hasTable($table_name)){
+        if(!Schema::hasTable($this->argument('table_name'))){
             $this->error("                                                                                                                        ");
             $this->error('  Please, check if table was created.                                                                                   ');
             $this->error("                                                                                                                        ");
