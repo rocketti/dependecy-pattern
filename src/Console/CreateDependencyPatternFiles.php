@@ -70,6 +70,8 @@ class CreateDependencyPatternFiles extends Command
             return 1;
         }
 
+        DB::connection()->getPdo();
+
         if(!Schema::hasTable($this->argument('table_name'))){
             $this->error("                                                                                                                        ");
             $this->error('  Please, check if table was created.                                                                                   ');
@@ -77,7 +79,6 @@ class CreateDependencyPatternFiles extends Command
             return 1;
         }
 
-        DB::connection()->getPdo();
         return 0;
     }
 

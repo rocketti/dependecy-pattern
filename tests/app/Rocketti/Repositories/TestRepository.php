@@ -2,9 +2,9 @@
 
 namespace App\Rocketti\Repositories;
 
-use App\Rocketti\Models\Teste;
+use App\Rocketti\Models\Test;
 
-class TesteRepository
+class TestRepository
 {
     /**
      * @var Role
@@ -12,12 +12,12 @@ class TesteRepository
     private $model;
 
     /**
-     * Teste Repository constructor.
-     * @param Teste $example
+     * Test Repository constructor.
+     * @param Test $example
      */
-    public function __construct(Teste $teste)
+    public function __construct(Test $test)
     {
-        $this->model = $Teste;
+        $this->model = $test;
     }
 
     /**

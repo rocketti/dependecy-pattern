@@ -3,27 +3,27 @@
 namespace App\Rocketti\Services;
 
 use App\Rocketti\Contracts\ServiceContract;
-use App\Rocketti\Repositories\TesteRepository;
+use App\Rocketti\Repositories\TestRepository;
 
-class TesteService implements ServiceContract
+class TestService implements ServiceContract
 {
      /**
-     * @var TesteRepository
+     * @var TestRepository
      */
     private $repository;
 
      /**
-     * @var TesteRepository
+     * @var TestRepository
      */
-    private $testeRepository;
+    private $testRepository;
 
     /**
-     * Teste Service constructor.
-     * @param TesteRepository $testeRepository
+     * Test Service constructor.
+     * @param TestRepository $testRepository
      */
-    public function __construct(TesteRepository $testeRepository)
+    public function __construct(TestRepository $testRepository)
     {
-        $this->repository = $testeRepository;
+        $this->repository = $testRepository;
     }
 
     /**
