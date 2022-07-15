@@ -25,6 +25,9 @@
         "php-coveralls/php-coveralls": "^2.5"
     },
     "scripts": {
+        "test": [
+            "phpunit --testdox --color --configuration=phpunit.xml"
+        ],
         "post-autoload-dump": [
             "@php ./vendor/bin/testbench package:discover --ansi"
         ]

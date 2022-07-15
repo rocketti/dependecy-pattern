@@ -1,11 +1,19 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
 use Rocketti\DependecyPattern\Tests\TestCase;
 
 class CriationFilesTest extends TestCase
 {
-    public function test_console_command()
+    public function testConsoleCommand()
+    {   
+        $this->artisan('dp:create Test tests --check')->assertExitCode(0);
+    }
+
+    public function testFileWasCreated()
     {
-        $this->artisan('dp:create Teste teste --check')->assertExitCode(0);
+        $this->assertTrue(file_exists('./tests/app/'.env('DEPENDENCY_FOLDER').'/Models/Test.php'));
+        $this->assertTrue(file_exists('./tests/app/'.env('DEPENDENCY_FOLDER').'/Repositories/TestRepository.php'));
+        $this->assertTrue(file_exists('./tests/app/'.env('DEPENDENCY_FOLDER').'/Services/TestService.php'));
     }
 }

@@ -71,7 +71,14 @@ class CreateDependencyPatternFiles extends Command
         }
 
         DB::connection()->getPdo();
-        
+
+        if(!Schema::hasTable($this->argument('table_name'))){
+            $this->error("                                                                                                                        ");
+            $this->error('  Please, check if table was created.                                                                                   ');
+            $this->error("                                                                                                                        ");
+            return 1;
+        }
+
         return 0;
     }
 
@@ -146,7 +153,13 @@ interface ServiceContract
     {
         if(!File::exists($folderName."Models/".ucfirst($class_name).".php"))
         {
+            $notInclude = ['id','created_at','updated_at'];
             $columns = Schema::getColumnListing($table_name);
+            foreach ($columns as $key => $column) {
+                if(in_array($column,$notInclude)) {
+                    unset($columns[$key]);
+                }
+            }
             $columns = "'".implode("','", $columns)."'";
             $content = '<?php
 

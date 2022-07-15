@@ -22,7 +22,7 @@
 
 - instale o pacode na sua aplicação:
 ``` shell
-    composer require rocketti/dependecy-pattern --dev
+composer require rocketti/dependecy-pattern --dev
 ```
 - add no `.env` da aplicação a chave com o nome da pasta onde vai ficar os arquivos de dependencia.
 ```shell
