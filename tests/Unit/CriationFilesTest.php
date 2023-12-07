@@ -7,7 +7,7 @@ class CriationFilesTest extends TestCase
 {
     public function testConsoleCommand()
     {   
-        $this->artisan('dp:create Test tests --check')->assertExitCode(0);
+        $this->artisan('dp:file Test tests --check')->assertExitCode(0);
     }
 
     public function testFileWasCreated()
