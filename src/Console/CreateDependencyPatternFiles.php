@@ -150,14 +150,30 @@ interface ServiceContract
     {
         if(!File::exists($folderName."Models/".ucfirst($class_name).".php"))
         {
-            $notInclude = ['id','created_at','updated_at'];
             $columns = Schema::getColumnListing($table_name);
+            $castsFinal = [];
+
             foreach ($columns as $key => $column) {
-                if(in_array($column,$notInclude)) {
+
+                if(in_array($column,['id','created_at','updated_at'])) {
                     unset($columns[$key]);
+                    continue;
+                }
+
+                $type = Schema::getColumnType($table_name,$column);
+                if(in_array($type,['date','timestamp'])) {
+                    if($type == 'date') {
+                        $castsFinal[] = "'$column' => 'date'";
+                    }
+                    if($type == 'timestamp') {
+                        $castsFinal[] = "'$column' => 'datetime'";
+                    }
                 }
             }
-            $columns = "'".implode("','", $columns)."'";
+
+            $columnsFinal = "'".implode("','", $columns)."'";
+            $casts = implode("','", $castsFinal);
+
             $content = '<?php
 
 namespace '.$class.'\Models;
@@ -173,8 +189,12 @@ class '.ucfirst($class_name).' extends Model
      */
     protected $table = "'.$table_name.'";
 
+    protected $casts = [
+        '.$casts.'
+    ];
+
     protected $fillable = [
-        '.$columns.'
+        '.$columnsFinal.'
     ];
 }';
         File::put($folderName."Models/".ucfirst($class_name).".php",$content);
