@@ -22,7 +22,8 @@
         "laravel/laravel": ">=5.8.35",
         "phpunit/phpunit": ">=9.5",
         "orchestra/testbench": ">=6.24",
-        "php-coveralls/php-coveralls": ">=2.5"
+        "php-coveralls/php-coveralls": "^2.7",
+        "doctrine/dbal": "^3.7"
     },
     "scripts": {
         "test": [

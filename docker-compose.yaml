@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  php-fpm: &default
+    image: dp-package:latest
+    build:
+      context: .
+      target: base
+    # user: "1000:1000"
+    working_dir: /application
+    volumes:
+      - .:/application

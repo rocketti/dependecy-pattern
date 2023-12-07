@@ -60,3 +60,7 @@ Opção `--update` é para atualizar os arquivos
 - 5.x ✔️
     -  Testado na `v5.8.38` do Laravel;
     - Testado na imagem docker PHP : `php:7.2.5-fpm-alpine`;
+
+### Desenvolvimento
+
+Teste: `php vendor/bin/phpunit --coverage-clover build/logs/clover.xml`
