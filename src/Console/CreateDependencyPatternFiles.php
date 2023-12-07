@@ -10,15 +10,21 @@ use Illuminate\Support\Facades\Schema;
 class CreateDependencyPatternFiles extends Command
 {
     // protected $hidden = true;
-    protected $signature = 'dp:create {class_name} {table_name} {--check}';
+    protected $signature = 'dp:file {class_name} {table_name} {--check} {--update}';
 
-    protected $description = 'Create depedency pattern files';
+    protected $description = 'Create and update depedency pattern files';
 
     public function handle()
     {
         $validator = $this->validateDependencies();
         if($validator == 1) {
             return 1;
+        }
+
+        $operation = 'create';
+
+        if($this->option('update')){
+            $operation = 'update';
         }
 
         $class_name = $this->argument('class_name');
@@ -34,16 +40,13 @@ class CreateDependencyPatternFiles extends Command
         }
 
         $this->line('Creating model...');
-        $this->createModel($folderName,$class_name,$class,$table_name);
-        $this->line('Creating model... done.');
+        $this->modelFile($folderName,$class_name,$class,$table_name,$operation);
 
         $this->line('Creating repository...');
-        $this->createRepository($folderName,$class_name,$class);
-        $this->line('Creating repository... done.');
+        $this->RepositoryFile($folderName,$class_name,$class,$operation);
 
         $this->line('Creating service...');
-        $this->createService($folderName,$class_name,$class);
-        $this->line('Creating service... done.');
+        $this->serviceFile($folderName,$class_name,$class,$operation);
         return 0;
     }
 
@@ -149,18 +152,34 @@ interface ServiceContract
         
     }
 
-    private function createModel($folderName,$class_name,$class,$table_name)
+    private function modelFile($folderName,$class_name,$class,$table_name,$operation)
     {
-        if(!File::exists($folderName."Models/".ucfirst($class_name).".php"))
+        if(!File::exists($folderName."Models/".ucfirst($class_name).".php") || $operation == 'update')
         {
-            $notInclude = ['id','created_at','updated_at'];
             $columns = Schema::getColumnListing($table_name);
+            $castsFinal = [];
+
             foreach ($columns as $key => $column) {
-                if(in_array($column,$notInclude)) {
+
+                if(in_array($column,['id','created_at','updated_at'])) {
                     unset($columns[$key]);
+                    continue;
+                }
+
+                $type = Schema::getColumnType($table_name,$column);
+                if(in_array($type,['date','timestamp'])) {
+                    if($type == 'date') {
+                        $castsFinal[] = "'$column' => 'date'";
+                    }
+                    if($type == 'timestamp') {
+                        $castsFinal[] = "'$column' => 'datetime'";
+                    }
                 }
             }
-            $columns = "'".implode("','", $columns)."'";
+
+            $columnsFinal = "'".implode("','", $columns)."'";
+            $casts = implode("','", $castsFinal);
+
             $content = '<?php
 
 namespace '.$class.'\Models;
@@ -176,17 +195,32 @@ class '.ucfirst($class_name).' extends Model
      */
     protected $table = "'.$table_name.'";
 
+    protected $casts = [
+        '.$casts.'
+    ];
+
     protected $fillable = [
-        '.$columns.'
+        '.$columnsFinal.'
     ];
 }';
-        File::put($folderName."Models/".ucfirst($class_name).".php",$content);
+            File::put($folderName."Models/".ucfirst($class_name).".php",$content);
+
+            if($operation == 'create') {
+                $this->info('Creating model... done.');
+            }
+
+            if($operation == 'update') {
+                $this->info('Updating model... done.');
+            }
+
+        } else {
+            $this->warn('Model exists... skipping.');
         }
     }
 
-    private function createRepository($folderName,$class_name,$class)
+    private function repositoryFile($folderName,$class_name,$class,$operation)
     {
-        if(!File::exists($folderName."Repositories/".ucfirst($class_name)."Repository.php"))
+        if(!File::exists($folderName."Repositories/".ucfirst($class_name)."Repository.php") || $operation == 'update')
         {
 
         $content = '<?php
@@ -204,7 +238,7 @@ class '.ucfirst($class_name).'Repository
 
     /**
      * '.ucfirst($class_name).' Repository constructor.
-     * @param '.ucfirst($class_name).' $example
+     * @param '.ucfirst($class_name).' $'.lcfirst($class_name).'
      */
     public function __construct('.$class_name.' $'.lcfirst($class_name).')
     {
@@ -257,12 +291,22 @@ class '.ucfirst($class_name).'Repository
     }
 }';
             File::put($folderName."Repositories/".ucfirst($class_name)."Repository.php",$content);
-        }  
+            
+            if($operation == 'create') {
+                $this->info('Creating model... done.');
+            }
+    
+            if($operation == 'update') {
+                $this->info('Updating model... done.');
+            }
+        } else {
+            $this->warn('Repository exists... skipping.');
+        }
     }
 
-    private function createService($folderName,$class_name,$class)
+    private function serviceFile($folderName,$class_name,$class,$operation)
     {
-        if(!File::exists($folderName."Services/".ucfirst($class_name)."Service.php"))
+        if(!File::exists($folderName."Services/".ucfirst($class_name)."Service.php") || $operation == 'update')
         {
             $content = '<?php
 
@@ -338,6 +382,16 @@ class '.$class_name.'Service implements ServiceContract
     }
 }';
             File::put($folderName."Services/".ucfirst($class_name)."Service.php",$content);
+            if($operation == 'create') {
+                $this->info('Creating model... done.');
+            }
+
+            if($operation == 'update') {
+                $this->info('Updating model... done.');
+            }
+
+        } else {
+            $this->warn('Service exists... skipping.');
         }
     }
 }
