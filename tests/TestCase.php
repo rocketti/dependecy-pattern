@@ -2,18 +2,26 @@
 
 namespace Rocketti\DependecyPattern\Tests;
 
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Illuminate\Support\Facades\Schema;
 // use PHPUnit\Framework\TestCase as UnitTestCase;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Database\Schema\Blueprint;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Rocketti\DependecyPattern\DependencyPatterServiceProvider;
 
 class TestCase extends OrchestraTestCase
 {
-    // protected $loadEnvironmentVariables = true;
-
+   
     public function setUp(): void
     {
         parent::setUp();
         // additional setup
+
+        Schema::create('tests', function (Blueprint $table) {
+            $table->id();
+            $table->string('test')->nullable();
+            $table->timestamps();
+        });
     }
 
     protected function getPackageProviders($app)
