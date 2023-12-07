@@ -191,7 +191,7 @@ class '.ucfirst($class_name).'Repository
 
     /**
      * '.ucfirst($class_name).' Repository constructor.
-     * @param '.ucfirst($class_name).' $example
+     * @param '.ucfirst($class_name).' $'.lcfirst($class_name).'
      */
     public function __construct('.$class_name.' $'.lcfirst($class_name).')
     {
