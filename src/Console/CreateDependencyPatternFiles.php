@@ -39,7 +39,7 @@ class CreateDependencyPatternFiles extends Command
 
         $this->line('Creating repository...');
         $this->createRepository($folderName,$class_name,$class);
-        $this->line('Creating repository... done.');
+        
 
         $this->line('Creating service...');
         $this->createService($folderName,$class_name,$class);
@@ -257,7 +257,10 @@ class '.ucfirst($class_name).'Repository
     }
 }';
             File::put($folderName."Repositories/".ucfirst($class_name)."Repository.php",$content);
-        }  
+            $this->line('Creating repository... done.');
+        } else {
+            $this->line('Repository exists... skipping.');
+        }
     }
 
     private function createService($folderName,$class_name,$class)
