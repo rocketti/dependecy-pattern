@@ -10,6 +10,7 @@
 <hr />
 
 ## Testes:
+- 10.x ⚠️ - ⟳ - Testando
 - 9.x ✔️
 - 8.x ✔️
 - 7.x ✔️
