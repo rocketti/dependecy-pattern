@@ -35,15 +35,12 @@ class CreateDependencyPatternFiles extends Command
 
         $this->line('Creating model...');
         $this->createModel($folderName,$class_name,$class,$table_name);
-        $this->line('Creating model... done.');
 
         $this->line('Creating repository...');
         $this->createRepository($folderName,$class_name,$class);
-        
 
         $this->line('Creating service...');
         $this->createService($folderName,$class_name,$class);
-        $this->line('Creating service... done.');
         return 0;
     }
 
@@ -181,7 +178,10 @@ class '.ucfirst($class_name).' extends Model
     ];
 }';
         File::put($folderName."Models/".ucfirst($class_name).".php",$content);
-        }
+        $this->info('Creating model... done.');
+    } else {
+        $this->warn('Model exists... skipping.');
+    }
     }
 
     private function createRepository($folderName,$class_name,$class)
@@ -257,9 +257,9 @@ class '.ucfirst($class_name).'Repository
     }
 }';
             File::put($folderName."Repositories/".ucfirst($class_name)."Repository.php",$content);
-            $this->line('Creating repository... done.');
+            $this->info('Creating repository... done.');
         } else {
-            $this->line('Repository exists... skipping.');
+            $this->warn('Repository exists... skipping.');
         }
     }
 
@@ -341,6 +341,9 @@ class '.$class_name.'Service implements ServiceContract
     }
 }';
             File::put($folderName."Services/".ucfirst($class_name)."Service.php",$content);
+            $this->info('Creating service... done.');
+        } else {
+            $this->warn('Service exists... skipping.');
         }
     }
 }
