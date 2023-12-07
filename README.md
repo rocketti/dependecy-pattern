@@ -30,13 +30,21 @@ DEPENDENCY_FOLDER="Rocketti"
 ```
 - Execute o comando abaixo para criar os arquivos:
 ```shell 
+## versões < 1.5.1 
 dp:create {class_name} {table_name} {--check}
+
+## versões >= 1.5.1 
+dp:file {class_name} {table_name} {--check} {--update}
 ```
 Opção `--check` é para verificar se existe as pastas para colocar os arquivos dentro.
+Opção `--update` é para atualizar os arquivos
 
 
 ### Detalhes de testes:
 
+- 10.x ⚠️ - ⟳ - Testando
+     <!-- - Testado na `v9.17.0` do Laravel;
+     - Testado na imagem docker PHP : `php:8.1.6-fpm-alpine`; -->
 - 9.x ✔️
      - Testado na `v9.17.0` do Laravel;
      - Testado na imagem docker PHP : `php:8.1.6-fpm-alpine`;
