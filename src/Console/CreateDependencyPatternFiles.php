@@ -293,11 +293,11 @@ class '.ucfirst($class_name).'Repository
             File::put($folderName."Repositories/".ucfirst($class_name)."Repository.php",$content);
             
             if($operation == 'create') {
-                $this->info('Creating model... done.');
+                $this->info('Creating repository... done.');
             }
     
             if($operation == 'update') {
-                $this->info('Updating model... done.');
+                $this->info('Updating repository... done.');
             }
         } else {
             $this->warn('Repository exists... skipping.');
@@ -383,11 +383,11 @@ class '.$class_name.'Service implements ServiceContract
 }';
             File::put($folderName."Services/".ucfirst($class_name)."Service.php",$content);
             if($operation == 'create') {
-                $this->info('Creating model... done.');
+                $this->info('Creating service... done.');
             }
 
             if($operation == 'update') {
-                $this->info('Updating model... done.');
+                $this->info('Updating service... done.');
             }
 
         } else {
