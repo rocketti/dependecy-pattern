@@ -35,10 +35,10 @@ DEPENDENCY_FOLDER="Rocketti"
 dp:create {class_name} {table_name} {--check}
 
 ## versões >= 1.5.1 
-dp:file {class_name} {table_name} {--check} {--update}
+dp:file {class_name} {table_name} {--check} {--recreate}
 ```
-Opção `--check` é para verificar se existe as pastas para colocar os arquivos dentro.
-Opção `--update` é para atualizar os arquivos
+Opção `--check` é para verificar se existe as pastas para colocar os arquivos dentro;
+Opção `--recreate` é para recriar os arquivos;
 
 
 ### Detalhes de testes:

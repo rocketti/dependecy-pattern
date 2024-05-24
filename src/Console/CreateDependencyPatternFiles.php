@@ -11,6 +11,7 @@ class CreateDependencyPatternFiles extends Command
 {
     const TYPE_UPDATE = 'update';
     const TYPE_RECREATE = 'recreate';
+    const TYPE_CREATE = 'create';
 
     // protected $hidden = true;
     protected $signature = 'dp:file {class_name} {table_name} {--check} {--recreate}';
@@ -24,7 +25,7 @@ class CreateDependencyPatternFiles extends Command
             return 1;
         }
 
-        $operation = 'create';
+        $operation = self::TYPE_CREATE;
 
         if ($this->option('recreate')) {
             $operation = self::TYPE_RECREATE;
@@ -201,11 +202,11 @@ class ' . ucfirst($class_name) . ' extends Model
 }';
             File::put($folderName . "Models/" . ucfirst($class_name) . ".php", $content);
 
-            if ($operation == 'create') {
+            if ($operation == self::TYPE_CREATE) {
                 $this->info('Creating model... done.');
             }
 
-            if ($operation == 'recreate') {
+            if ($operation == self::TYPE_RECREATE) {
                 $this->info('Recreating model... done.');
             }
         } else {
@@ -286,7 +287,7 @@ class ' . ucfirst($class_name) . 'Repository
 }';
             File::put($folderName . "Repositories/" . ucfirst($class_name) . "Repository.php", $content);
 
-            if ($operation == 'create') {
+            if ($operation == self::TYPE_CREATE) {
                 $this->info('Creating repository... done.');
             }
 
@@ -375,7 +376,7 @@ class ' . $class_name . 'Service implements ServiceContract
     }
 }';
             File::put($folderName . "Services/" . ucfirst($class_name) . "Service.php", $content);
-            if ($operation == 'create') {
+            if ($operation == self::TYPE_CREATE) {
                 $this->info('Creating service... done.');
             }
 
