@@ -57,21 +57,21 @@ class CreateDependencyPatternFiles extends Command
     {
         if (env('DEPENDENCY_FOLDER') == '' || env('DEPENDENCY_FOLDER') == null) {
             $this->error("                                                                                                                        ");
-            $this->error('  Please, check the env variable -> DEPENDENCY_FOLDER                                                                   ');
+            $this->error("  Please, check the env variable -> DEPENDENCY_FOLDER                                                                   ");
             $this->error("                                                                                                                        ");
             return 1;
         }
 
         if ($this->argument('class_name') == null  || $this->argument('class_name') == '') {
             $this->error("                                                                                                                        ");
-            $this->error('  Please, check argument class_name                                                                                     ');
+            $this->error("  Please, check argument class_name                                                                                     ");
             $this->error("                                                                                                                        ");
             return 1;
         }
 
         if ($this->argument('table_name') == null || $this->argument('table_name') == '') {
             $this->error("                                                                                                                        ");
-            $this->error('  Please, check argument table_name                                                                                     ');
+            $this->error("  Please, check argument table_name                                                                                     ");
             $this->error("                                                                                                                        ");
             return 1;
         }
@@ -80,7 +80,7 @@ class CreateDependencyPatternFiles extends Command
 
         if (!Schema::hasTable($this->argument('table_name'))) {
             $this->error("                                                                                                                        ");
-            $this->error('  Please, check if table was created.                                                                                   ');
+            $this->error("  Please, check if table was created.                                                                                   ");
             $this->error("                                                                                                                        ");
             return 1;
         }
@@ -106,8 +106,6 @@ class CreateDependencyPatternFiles extends Command
                 }
             }
         }
-
-        // check contract file:
 
         if (!File::exists($folderName . "/Contracts/ServiceContract.php")) {
             $content = '<?php
