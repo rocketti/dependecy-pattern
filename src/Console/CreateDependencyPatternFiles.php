@@ -53,7 +53,7 @@ class CreateDependencyPatternFiles extends Command
         $this->serviceFile($folderName, $class_name, $class, $operation);
 
         $this->line('Creating factory...');
-        $this->serviceFile($folderName, $class_name, $class, $operation);
+        $this->factoryFile($folderName, $class_name, $class, $operation);
 
         return 0;
     }
