@@ -12,6 +12,7 @@ class CriationFilesTest extends TestCase
 
     public function testFileWasCreated()
     {
+        $this->artisan('dp:file Test tests --check');
         $this->assertTrue(file_exists('./tests/app/'.env('DEPENDENCY_FOLDER').'/Models/Test.php'));
         $this->assertTrue(file_exists('./tests/app/'.env('DEPENDENCY_FOLDER').'/Repositories/TestRepository.php'));
         $this->assertTrue(file_exists('./tests/app/'.env('DEPENDENCY_FOLDER').'/Services/TestService.php'));
