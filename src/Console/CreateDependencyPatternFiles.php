@@ -51,6 +51,10 @@ class CreateDependencyPatternFiles extends Command
 
         $this->line('Creating service...');
         $this->serviceFile($folderName, $class_name, $class, $operation);
+
+        $this->line('Creating factory...');
+        $this->serviceFile($folderName, $class_name, $class, $operation);
+
         return 0;
     }
 
@@ -180,10 +184,12 @@ interface ServiceContract
 
 namespace ' . $class . '\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ' . ucfirst($class_name) . ' extends Model
 {
+    use HasFactory;
     /**
      * The table associated with the model.
      *
@@ -384,6 +390,45 @@ class ' . $class_name . 'Service implements ServiceContract
             }
         } else {
             $this->warn('Service exists... skipping.');
+        }
+    }
+
+    private function factoryFile($class_name, $class, $operation)
+    {
+        if (!File::exists("database/factories/" . ucfirst($class_name) . "Factory.php") || $operation == self::TYPE_RECREATE) {
+            $content = '<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\\'.ucfirst($class_name).'>
+ */
+class '.ucfirst($class_name).'Factory extends Factory
+{
+    /**
+     * Define the model\'s default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+
+        ];
+    }
+}';
+            File::put("database/factories/" . ucfirst($class_name) . "Factory.php", $content);
+            if ($operation == self::TYPE_CREATE) {
+                $this->info('Creating factory... done.');
+            }
+
+            if ($operation == self::TYPE_RECREATE) {
+                $this->info('Recreating factory... done.');
+            }
+        } else {
+            $this->warn('Factory exists... skipping.');
         }
     }
 }
