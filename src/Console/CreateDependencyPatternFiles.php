@@ -44,6 +44,7 @@ class CreateDependencyPatternFiles extends Command
             $this->line('Checking if folder exists... done.');
         } else {
             if($this->folderExists($folderName, $class, true) == 'VALIDATION_ERROR'){
+                $this->warn("You need create folder or add --check in your create command");
                 return 1;
             }
         }
@@ -108,7 +109,7 @@ class CreateDependencyPatternFiles extends Command
             $validation = false;
             foreach ($folders as $folder) {
                 if (!File::exists($folderName . "/" . $folder)) {
-                    $this->error($folderName . "/" . $folder . " does not exists");
+                    $this->error($folderName . $folder . " does not exists");
                     $validation = true;
                 }
             }
