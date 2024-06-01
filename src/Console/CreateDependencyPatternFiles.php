@@ -36,13 +36,14 @@ class CreateDependencyPatternFiles extends Command
         $class = "App\\" . env('DEPENDENCY_FOLDER');
         $folderName = (env('APP_ENV') == 'testing') ? './tests/app/' . env('DEPENDENCY_FOLDER') . "/" : 'app/' . env('DEPENDENCY_FOLDER') . "/";
 
+        $this->folderExists($folderName, $class,true);
+
         if ($this->option('check')) {
             $this->line('Checking if folder exists...');
             $this->folderExists($folderName, $class);
             $this->line('Checking if folder exists... done.');
         }
 
-        
         $this->line('Creating model...');
         $this->modelFile($folderName, $class_name, $class, $table_name, $operation);
 
@@ -93,35 +94,42 @@ class CreateDependencyPatternFiles extends Command
         return 0;
     }
 
-    private function folderExists($folderName, $class)
+    private function folderExists($folderName, $class, $justCheck = false)
     {
         $folders = [
             'Contracts', 'Services', 'Repositories', 'Models'
         ];
 
-        if (!File::exists($folderName)) {
-            File::makeDirectory($folderName);
+        if($justCheck === true) {
             foreach ($folders as $folder) {
-                File::makeDirectory($folderName . "/" . $folder);
-            }
-        } elseif (File::exists($folderName)) {
-            foreach ($folders as $folder) {
-                if (!File::exists($folderName . "/" . $folder)) {
-                    File::makeDirectory($folderName . "/" . $folder);
+                if(!File::exists($folderName . "/" . $folder)) {
+                    $this->error($folderName . "/" . $folder . " does not exists");
                 }
             }
-        }
-
-        if (!File::exists($folderName . "/Contracts/ServiceContract.php")) {
-            $content = '<?php
-
+        } else {
+            if (!File::exists($folderName)) {
+                File::makeDirectory($folderName);
+                foreach ($folders as $folder) {
+                    File::makeDirectory($folderName . "/" . $folder);
+                }
+            } else if (File::exists($folderName)) {
+                foreach ($folders as $folder) {
+                    if (!File::exists($folderName . "/" . $folder)) {
+                        File::makeDirectory($folderName . "/" . $folder);
+                    }
+                }
+            }
+    
+            if (!File::exists($folderName . "/Contracts/ServiceContract.php")) {
+                $content = '<?php
+    
 namespace ' . $class . '\Contracts;
             
 interface ServiceContract
 {
     /**
     * @return mixed
-     */
+        */
     public function renderList();
 
     /**
@@ -149,7 +157,8 @@ interface ServiceContract
      */
     public function buildDelete($id);
 }';
-            File::put($folderName . "/Contracts/ServiceContract.php", $content);
+                File::put($folderName . "/Contracts/ServiceContract.php", $content);
+            }
         }
     }
 
