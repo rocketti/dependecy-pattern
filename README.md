@@ -35,14 +35,17 @@ DEPENDENCY_FOLDER="Rocketti"
 dp:create {class_name} {table_name} {--check}
 
 ## versões >= 1.5.1 
-dp:file {class_name} {table_name} {--check} {--update}
+dp:file {class_name} {table_name} {--check} {--recreate}
 ```
-Opção `--check` é para verificar se existe as pastas para colocar os arquivos dentro.
-Opção `--update` é para atualizar os arquivos
+Opção `--check` é para verificar se existe as pastas para colocar os arquivos dentro;
+Opção `--recreate` é para recriar os arquivos;
 
 
 ### Detalhes de testes:
 
+- 11.x ⚠️ - ⟳ - Testando
+     <!-- - Testado na `v9.17.0` do Laravel;
+     - Testado na imagem docker PHP : `php:8.1.6-fpm-alpine`; -->
 - 10.x ⚠️ - ⟳ - Testando
      <!-- - Testado na `v9.17.0` do Laravel;
      - Testado na imagem docker PHP : `php:8.1.6-fpm-alpine`; -->

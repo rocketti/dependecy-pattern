@@ -3,6 +3,7 @@
 namespace Rocketti\DependecyPattern;
 
 use Illuminate\Support\ServiceProvider;
+use Rocketti\DependecyPattern\Console\DeleteFiles;
 use Rocketti\DependecyPattern\Console\CreateDependencyPatternFiles;
 
 class DependencyPatterServiceProvider extends ServiceProvider
@@ -23,6 +24,7 @@ class DependencyPatterServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CreateDependencyPatternFiles::class,
+                DeleteFiles::class,
             ]);
         }
     }
