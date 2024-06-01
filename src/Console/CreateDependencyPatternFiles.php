@@ -36,8 +36,6 @@ class CreateDependencyPatternFiles extends Command
         $class = "App\\" . env('DEPENDENCY_FOLDER');
         $folderName = (env('APP_ENV') == 'testing') ? './tests/app/' . env('DEPENDENCY_FOLDER') . "/" : 'app/' . env('DEPENDENCY_FOLDER') . "/";
 
-        
-
         if ($this->option('check')) {
             $this->line('Checking if folder exists...');
             $this->folderExists($folderName, $class);
@@ -59,7 +57,7 @@ class CreateDependencyPatternFiles extends Command
         $this->serviceFile($folderName, $class_name, $class, $operation);
 
         $this->line('Creating factory...');
-        $this->factoryFile($class_name, $class, $operation);
+        $this->factoryFile($class_name, $operation);
 
         return 0;
     }
@@ -413,9 +411,10 @@ class ' . $class_name . 'Service implements ServiceContract
         }
     }
 
-    private function factoryFile($class_name, $class, $operation)
+    private function factoryFile($class_name, $operation)
     {
-        if (!File::exists("database/factories/" . ucfirst($class_name) . "Factory.php") || $operation == self::TYPE_RECREATE) {
+        $path = (env('APP_ENV') == 'testing') ? './tests/database/factories/' : 'database/factories/';
+        if (!File::exists($path . ucfirst($class_name) . "Factory.php") || $operation == self::TYPE_RECREATE) {
             $content = '<?php
 
 namespace Database\Factories;
@@ -439,7 +438,7 @@ class ' . ucfirst($class_name) . 'Factory extends Factory
         ];
     }
 }';
-            File::put("database/factories/" . ucfirst($class_name) . "Factory.php", $content);
+            File::put($path . ucfirst($class_name) . "Factory.php", $content);
             if ($operation == self::TYPE_CREATE) {
                 $this->info('Creating factory... done.');
             }
