@@ -34,6 +34,12 @@ class DeleteFiles extends Command
             $this->info("Deleted " . $serviceFilename);
         }
 
+        $factoryFilename = "database/factories/" . ucfirst($class_name) . "Factory.php";
+        if (File::exists($factoryFilename)) {
+            File::delete($factoryFilename);
+            $this->info("Deleted " . $factoryFilename);
+        }
+
         return 0;
     }
 }

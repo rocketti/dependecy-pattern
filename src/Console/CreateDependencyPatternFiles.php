@@ -36,12 +36,16 @@ class CreateDependencyPatternFiles extends Command
         $class = "App\\" . env('DEPENDENCY_FOLDER');
         $folderName = (env('APP_ENV') == 'testing') ? './tests/app/' . env('DEPENDENCY_FOLDER') . "/" : 'app/' . env('DEPENDENCY_FOLDER') . "/";
 
-        $this->folderExists($folderName, $class,true);
+        
 
         if ($this->option('check')) {
             $this->line('Checking if folder exists...');
             $this->folderExists($folderName, $class);
             $this->line('Checking if folder exists... done.');
+        } else {
+            if($this->folderExists($folderName, $class, true) == 'VALIDATION_ERROR'){
+                return 1;
+            }
         }
 
         $this->line('Creating model...');
@@ -100,11 +104,17 @@ class CreateDependencyPatternFiles extends Command
             'Contracts', 'Services', 'Repositories', 'Models'
         ];
 
-        if($justCheck === true) {
+        if ($justCheck === true) {
+            $validation = false;
             foreach ($folders as $folder) {
-                if(!File::exists($folderName . "/" . $folder)) {
+                if (!File::exists($folderName . "/" . $folder)) {
                     $this->error($folderName . "/" . $folder . " does not exists");
+                    $validation = true;
                 }
+            }
+
+            if($validation === true){
+                return "VALIDATION_ERROR";
             }
         } else {
             if (!File::exists($folderName)) {
@@ -119,7 +129,7 @@ class CreateDependencyPatternFiles extends Command
                     }
                 }
             }
-    
+
             if (!File::exists($folderName . "/Contracts/ServiceContract.php")) {
                 $content = '<?php
     
@@ -170,7 +180,7 @@ interface ServiceContract
 
             foreach ($columns as $key => $column) {
 
-                if (in_array($column, ['id', 'created_at', 'updated_at','deleted_at'])) {
+                if (in_array($column, ['id', 'created_at', 'updated_at', 'deleted_at'])) {
                     unset($columns[$key]);
                     continue;
                 }
@@ -412,9 +422,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\\'.ucfirst($class_name).'>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\\' . ucfirst($class_name) . '>
  */
-class '.ucfirst($class_name).'Factory extends Factory
+class ' . ucfirst($class_name) . 'Factory extends Factory
 {
     /**
      * Define the model\'s default state.
