@@ -42,6 +42,7 @@ class CreateDependencyPatternFiles extends Command
             $this->line('Checking if folder exists... done.');
         }
 
+        
         $this->line('Creating model...');
         $this->modelFile($folderName, $class_name, $class, $table_name, $operation);
 

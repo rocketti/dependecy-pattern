@@ -43,6 +43,9 @@ Opção `--recreate` é para recriar os arquivos;
 
 ### Detalhes de testes:
 
+- 11.x ⚠️ - ⟳ - Testando
+     <!-- - Testado na `v9.17.0` do Laravel;
+     - Testado na imagem docker PHP : `php:8.1.6-fpm-alpine`; -->
 - 10.x ⚠️ - ⟳ - Testando
      <!-- - Testado na `v9.17.0` do Laravel;
      - Testado na imagem docker PHP : `php:8.1.6-fpm-alpine`; -->
