@@ -161,7 +161,7 @@ interface ServiceContract
 
             foreach ($columns as $key => $column) {
 
-                if (in_array($column, ['id', 'created_at', 'updated_at'])) {
+                if (in_array($column, ['id', 'created_at', 'updated_at','deleted_at'])) {
                     unset($columns[$key]);
                     continue;
                 }
