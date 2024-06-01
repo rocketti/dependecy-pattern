@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDependencyPatternFiles extends Command
+class DeleteFiles extends Command
 {
     protected $signature = 'dp:delete {class_name}';
 
