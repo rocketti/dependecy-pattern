@@ -19,17 +19,19 @@ class DeleteFiles extends Command
 
         $modelFilename = $folderName . "Models/" . ucfirst($class_name) . ".php";
         if (File::exists($modelFilename)) {
-            Storage::delete($modelFilename);
+            File::delete($modelFilename);
             $this->info("Deleted " . $modelFilename);
         }
 
         $repositoryFilename = $folderName . "Repositories/" . ucfirst($class_name) . "Repository.php";
         if (File::exists($repositoryFilename)) {
+            File::delete($repositoryFilename);
             $this->info("Deleted " . $repositoryFilename);
         }
 
         $serviceFilename = $folderName . "Services/" . ucfirst($class_name) . "Service.php";
         if (File::exists($serviceFilename)) {
+            File::delete($serviceFilename);
             $this->info("Deleted " . $serviceFilename);
         }
 
