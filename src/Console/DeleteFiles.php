@@ -3,9 +3,8 @@
 namespace Rocketti\DependecyPattern\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class DeleteFiles extends Command
 {
@@ -18,19 +17,20 @@ class DeleteFiles extends Command
         $class_name = $this->argument('class_name');
         $folderName = (env('APP_ENV') == 'testing') ? './tests/app/' . env('DEPENDENCY_FOLDER') . "/" : 'app/' . env('DEPENDENCY_FOLDER') . "/";
 
-        if(File::exists($folderName . "Models/" . ucfirst($class_name) . ".php"))
-        {
-            $this->info("file exists: ".$folderName . "Models/" . ucfirst($class_name) . ".php");
+        $modelFilename = $folderName . "Models/" . ucfirst($class_name) . ".php";
+        if (File::exists($modelFilename)) {
+            Storage::delete($modelFilename);
+            $this->info("Deleted " . $modelFilename);
         }
 
-        if(File::exists($folderName . "Repositories/" . ucfirst($class_name) . "Repository.php"))
-        {
-            $this->info("file exists: ".$folderName . "Repositories/" . ucfirst($class_name) . "Repository.php");
+        $repositoryFilename = $folderName . "Repositories/" . ucfirst($class_name) . "Repository.php";
+        if (File::exists($repositoryFilename)) {
+            $this->info("Deleted " . $repositoryFilename);
         }
 
-        if(File::exists($folderName . "Services/" . ucfirst($class_name) . "Service.php"))
-        {
-            $this->info("file exists: ".$folderName . "Services/" . ucfirst($class_name) . "Service.php");
+        $serviceFilename = $folderName . "Services/" . ucfirst($class_name) . "Service.php";
+        if (File::exists($serviceFilename)) {
+            $this->info("Deleted " . $serviceFilename);
         }
 
         return 0;
